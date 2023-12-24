@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "superbsteeds",
+  "version": "${version}",
+  "name": "Superb Steeds",
+  "description": "Overhauls horses with various adjustments and training mechanics",
+  "authors": [
+	"MoriyaShiine",
+	"8onfire"
+  ],
+  "contact": {
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/superb-steeds",
+	"sources": "https://github.com/MoriyaShiine/superb-steeds",
+	"issues": "https://github.com/MoriyaShiine/superb-steeds/issues"
+  },
+  "license": "All Rights Reserved",
+  "icon": "assets/superbsteeds/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"main": [
+	  "moriyashiine.superbsteeds.common.SuperbSteeds"
+	],
+	"client": [
+	  "moriyashiine.superbsteeds.client.SuperbSteedsClient"
+	],
+	"cardinal-components-entity": [
+	  "moriyashiine.superbsteeds.common.init.ModEntityComponents"
+	]
+  },
+  "mixins": [
+	"superbsteeds.mixins.json"
+  ],
+  "depends": {
+	"fabricloader": "*",
+	"minecraft": "~1.20.1",
+	"java": ">=17",
+	"fabric-api": "*"
+  },
+  "custom": {
+	"cardinal-components": [
+	  "superbsteeds:horse_attributes"
+	]
+  }
+}
