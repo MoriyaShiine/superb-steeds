@@ -23,10 +23,12 @@ public class HorseArmorItemMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void superbsteeds$swapGoldAndIronValues(int bonus, String name, Item.Settings settings, CallbackInfo ci) {
-		if (name.equals("iron")) {
-			this.bonus = 7;
-		} else if (name.equals("gold")) {
-			this.bonus = 5;
+		if (name != null) {
+			if (name.equals("iron")) {
+				this.bonus = 7;
+			} else if (name.equals("gold")) {
+				this.bonus = 5;
+			}
 		}
 	}
 }
