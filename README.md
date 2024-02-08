@@ -1,5 +1,4 @@
 # Superb Steeds
-
 Superb Steeds aims to reduce the tedium and increase the usefulness of horses!
 
 The features this mod offers are:
