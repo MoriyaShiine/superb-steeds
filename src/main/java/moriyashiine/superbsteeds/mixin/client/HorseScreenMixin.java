@@ -6,6 +6,7 @@ package moriyashiine.superbsteeds.mixin.client;
 
 import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
+import moriyashiine.superbsteeds.common.component.entity.LLamaTrainingComponent;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -47,12 +48,18 @@ public abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(entity);
 		if (horseAttributesComponent != null) {
 			context.drawTexture(ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 28, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight);
-			showAttributes(context, horseAttributesComponent);
+			drawHorseAttributes(context, horseAttributesComponent);
+		} else {
+			LLamaTrainingComponent llamaTrainingComponent = ModEntityComponents.LLAMA_TRAINING.getNullable(entity);
+			if (llamaTrainingComponent != null) {
+				context.drawTexture(ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 16, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight);
+				drawLlamaAttributes(context, llamaTrainingComponent);
+			}
 		}
 	}
 
 	@Unique
-	private void showAttributes(DrawContext context, HorseAttributesComponent horseAttributesComponent) {
+	private void drawHorseAttributes(DrawContext context, HorseAttributesComponent horseAttributesComponent) {
 		context.drawTexture(SPEED_ICON, context.getScaledWindowWidth() / 2 - 111, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
 			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getSpeed() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 110, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
@@ -60,6 +67,14 @@ public abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 		context.drawTexture(JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
 			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getJump() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
+		}
+	}
+
+	@Unique
+	private void drawLlamaAttributes(DrawContext context, LLamaTrainingComponent llamaTrainingComponent) {
+		context.drawTexture(JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
+		for (int i = 0; i < 5; i++) {
+			context.drawText(MinecraftClient.getInstance().textRenderer, i < llamaTrainingComponent.getStrength() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
 		}
 	}
 }

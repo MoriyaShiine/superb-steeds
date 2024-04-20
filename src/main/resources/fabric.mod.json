@@ -38,7 +38,8 @@
   },
   "custom": {
 	"cardinal-components": [
-	  "superbsteeds:horse_attributes"
+	  "superbsteeds:horse_attributes",
+	  "superbsteeds:llama_training"
 	]
   }
 }
