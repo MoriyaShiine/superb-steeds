@@ -5,6 +5,7 @@
   "mixins": [
 	"AbstractHorseEntityMixin",
 	"AmbientStandGoalMixin",
+	"EntityMixin",
 	"HorseArmorItemMixin",
 	"PowderSnowBlockMixin"
   ],
