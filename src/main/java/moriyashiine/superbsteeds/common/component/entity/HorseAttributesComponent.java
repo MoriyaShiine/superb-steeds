@@ -7,6 +7,7 @@ package moriyashiine.superbsteeds.common.component.entity;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -16,7 +17,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 
 public class HorseAttributesComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final float MAX_HEALTH = 30;
 	private static final int MAX_EXPERIENCE = 600;
 
 	private final AbstractHorseEntity obj;
@@ -31,8 +31,8 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		setAttributes = tag.getBoolean("SetAttributes");
-		speed = tag.getInt("Speed");
-		jump = tag.getInt("Jump");
+		setSpeed(tag.getInt("Speed"));
+		setJump(tag.getInt("Jump"));
 		experience = tag.getInt("Experience");
 	}
 
@@ -101,6 +101,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+		obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(getSpeedAdjusted());
 	}
 
 	public int getJump() {
@@ -109,6 +110,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 
 	public void setJump(int jump) {
 		this.jump = jump;
+		obj.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH).setBaseValue(getJumpAdjusted());
 	}
 
 	public float getSpeedAdjusted() {
