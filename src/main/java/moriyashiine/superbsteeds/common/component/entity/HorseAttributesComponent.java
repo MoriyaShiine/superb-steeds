@@ -17,6 +17,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 
 public class HorseAttributesComponent implements AutoSyncedComponent, ServerTickingComponent {
+	public static final float MAX_HEALTH = 30;
+
 	private static final int MAX_EXPERIENCE = 600;
 
 	private final AbstractHorseEntity obj;

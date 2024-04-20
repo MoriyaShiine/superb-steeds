@@ -7,7 +7,9 @@
 	"AmbientStandGoalMixin",
 	"EntityMixin",
 	"HorseArmorItemMixin",
-	"PowderSnowBlockMixin"
+	"PowderSnowBlockMixin",
+	"SkeletonHorseEntityMixin",
+	"ZombieHorseEntityMixin"
   ],
   "client": [
 	"client.HorseScreenMixin"
