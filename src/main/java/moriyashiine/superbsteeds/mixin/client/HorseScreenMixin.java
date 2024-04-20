@@ -44,13 +44,15 @@ public abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 
 	@Inject(method = "drawBackground", at = @At("HEAD"))
 	private void superbsteeds$showAttributes(DrawContext context, float delta, int mouseX, int mouseY, CallbackInfo ci) {
-		context.drawTexture(ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 28, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight);
-		showAttributes(context);
+		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(entity);
+		if (horseAttributesComponent != null) {
+			context.drawTexture(ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 28, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight);
+			showAttributes(context, horseAttributesComponent);
+		}
 	}
 
 	@Unique
-	private void showAttributes(DrawContext context) {
-		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.get(entity);
+	private void showAttributes(DrawContext context, HorseAttributesComponent horseAttributesComponent) {
 		context.drawTexture(SPEED_ICON, context.getScaledWindowWidth() / 2 - 111, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
 			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getSpeed() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 110, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
