@@ -7,6 +7,8 @@ package moriyashiine.superbsteeds.common.component.entity;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
+import moriyashiine.superbsteeds.mixin.AbstractHorseEntityAccessor;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -17,7 +19,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 
 public class HorseAttributesComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final float MAX_HEALTH = 30;
+	public static final float BASE_HEALTH = 30;
+	public static final double BASE_HORSE_SPEED = 0.16875, BASE_HORSE_JUMP = 0.5;
 
 	private static final int MAX_EXPERIENCE = 600;
 
@@ -33,8 +36,8 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		setAttributes = tag.getBoolean("SetAttributes");
-		setSpeed(tag.getInt("Speed"));
-		setJump(tag.getInt("Jump"));
+		speed = tag.getInt("Speed");
+		jump = tag.getInt("Jump");
 		experience = tag.getInt("Experience");
 	}
 
@@ -50,18 +53,14 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	public void serverTick() {
 		if (!setAttributes) {
 			setAttributes = true;
-			int val = obj.getRandom().nextInt(4);
-			int speed = 1, jump = 1;
-			while (val > 0) {
+			((AbstractHorseEntityAccessor) obj).superbsteeds$initAttributes(obj.getRandom());
+			for (int i = 0; i < obj.getRandom().nextInt(4); i++) {
 				if (obj.getRandom().nextBoolean()) {
-					speed++;
+					incrementSpeed();
 				} else {
-					jump++;
+					incrementJump();
 				}
-				val--;
 			}
-			setSpeed(speed);
-			setJump(jump);
 			sync();
 		}
 		if (obj.getWorld().getTime() % 20 == 0) {
@@ -72,16 +71,16 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 						experience = 0;
 						if (obj.getRandom().nextBoolean()) {
 							if (speed < 5) {
-								speed++;
+								incrementSpeed();
 							} else {
-								jump++;
+								incrementJump();
 							}
 						} else {
 							if (jump < 5) {
-								jump++;
+								incrementJump();
 
 							} else {
-								speed++;
+								incrementSpeed();
 							}
 						}
 						obj.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
@@ -101,55 +100,17 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
-		obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(getSpeedAdjusted());
+	public void incrementSpeed() {
+		obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Training modifier", obj instanceof CamelEntity ? 0.0133 : 27 / 640D, EntityAttributeModifier.Operation.ADDITION));
+		speed++;
 	}
 
 	public int getJump() {
 		return jump;
 	}
 
-	public void setJump(int jump) {
-		this.jump = jump;
-		obj.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH).setBaseValue(getJumpAdjusted());
-	}
-
-	public float getSpeedAdjusted() {
-		if (obj instanceof CamelEntity) {
-			return switch (speed) {
-				case 5 -> 0.13F;
-				case 4 -> 0.1166F;
-				case 3 -> 0.1033F;
-				case 2 -> 0.09F;
-				default -> 0.0766F;
-			};
-		}
-		return switch (speed) {
-			case 5 -> 0.3375F;
-			case 4 -> 0.2953125F;
-			case 3 -> 0.253125F;
-			case 2 -> 0.2109375F;
-			default -> 0.16875F;
-		};
-	}
-
-	public double getJumpAdjusted() {
-		if (obj instanceof CamelEntity) {
-			return switch (jump) {
-				case 5 -> 0.5;
-				case 4 -> 0.4733;
-				case 3 -> 0.4466;
-				case 2 -> 0.42;
-				default -> 0.3933;
-			};
-		}
-		return switch (jump) {
-			case 5 -> 1;
-			case 4 -> 0.875;
-			case 3 -> 0.75;
-			case 2 -> 0.625;
-			default -> 0.5;
-		};
+	public void incrementJump() {
+		obj.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH).addPersistentModifier(new EntityAttributeModifier("Training modifier", obj instanceof CamelEntity ? 0.0267 : 1 / 8D, EntityAttributeModifier.Operation.ADDITION));
+		jump++;
 	}
 }

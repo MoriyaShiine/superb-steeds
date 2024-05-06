@@ -3,9 +3,11 @@
   "package": "moriyashiine.superbsteeds.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+	"AbstractDonkeyEntityMixin",
 	"AbstractHorseEntityAccessor",
 	"AbstractHorseEntityMixin",
 	"AmbientStandGoalMixin",
+	"CamelEntityMixin",
 	"EntityMixin",
 	"HorseArmorItemMixin",
 	"LlamaEntityAccessor",

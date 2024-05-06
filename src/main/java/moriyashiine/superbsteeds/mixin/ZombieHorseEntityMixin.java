@@ -13,7 +13,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(ZombieHorseEntity.class)
 public class ZombieHorseEntityMixin {
 	@ModifyArg(method = "createZombieHorseAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/entity/attribute/EntityAttribute;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0))
-	private static double superbsteeds$flatHealth(double value) {
-		return HorseAttributesComponent.MAX_HEALTH;
+	private static double superbsteeds$baseHealth(double value) {
+		return HorseAttributesComponent.BASE_HEALTH;
+	}
+
+	@ModifyArg(method = "createZombieHorseAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/entity/attribute/EntityAttribute;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 1))
+	private static double superbsteeds$baseSpeed(double value) {
+		return HorseAttributesComponent.BASE_HORSE_SPEED;
 	}
 }
