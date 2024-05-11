@@ -12,4 +12,6 @@ The features this mod offers are:
 * Leather horse armor allows horses to safely ride over powder snow.
 * Iron horse armor and golden horse armor have had their armor values swapped, making iron horse armor more powerful.
 * Horse armor now displays their armor value in the tooltip.
+* Skeleton Horses are no longer slowed by Soul Sand.
+* Llamas can be trained to have more inventory slots by leading them around.
 ```
