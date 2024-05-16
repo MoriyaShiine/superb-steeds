@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PowderSnowBlockMixin {
 	@ModifyReturnValue(method = "canWalkOnPowderSnow", at = @At("RETURN"))
 	private static boolean superbsteeds$leatherHorseArmor(boolean original, Entity entity) {
-		if (!original && entity instanceof HorseEntity horse && horse.getArmorType().isOf(Items.LEATHER_HORSE_ARMOR)) {
+		if (!original && entity instanceof HorseEntity horse && horse.getBodyArmor().isOf(Items.LEATHER_HORSE_ARMOR)) {
 			return true;
 		}
 		return original;

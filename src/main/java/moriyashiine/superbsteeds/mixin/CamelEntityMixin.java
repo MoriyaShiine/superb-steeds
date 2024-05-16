@@ -15,12 +15,12 @@ public class CamelEntityMixin {
 	@Unique
 	private static final double BASE_CAMEL_SPEED = 0.0766, BASE_CAMEL_JUMP = 0.3933;
 
-	@ModifyArg(method = "createCamelAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/entity/attribute/EntityAttribute;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 1))
+	@ModifyArg(method = "createCamelAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 1))
 	private static double superbsteeds$baseHealth(double value) {
 		return BASE_CAMEL_SPEED;
 	}
 
-	@ModifyArg(method = "createCamelAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/entity/attribute/EntityAttribute;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 2))
+	@ModifyArg(method = "createCamelAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 2))
 	private static double superbsteeds$baseSpeed(double value) {
 		return BASE_CAMEL_JUMP;
 	}

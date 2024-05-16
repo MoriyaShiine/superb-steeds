@@ -15,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,7 +52,7 @@ public abstract class AbstractHorseEntityMixin extends LivingEntity {
 	}
 
 	@WrapOperation(method = "setChildAttribute", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;calculateAttributeBaseValue(DDDDLnet/minecraft/util/math/random/Random;)D"))
-	private double superbsteeds$baseStats(double parentBase, double otherParentBase, double min, double max, Random random, Operation<Double> original, PassiveEntity other, AbstractHorseEntity child, EntityAttribute attribute) {
+	private double superbsteeds$baseStats(double parentBase, double otherParentBase, double min, double max, Random random, Operation<Double> original, PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute) {
 		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(child);
 		if (horseAttributesComponent != null) {
 			if (attribute == EntityAttributes.GENERIC_MAX_HEALTH) {
@@ -60,7 +61,7 @@ public abstract class AbstractHorseEntityMixin extends LivingEntity {
 			if (attribute == EntityAttributes.GENERIC_MOVEMENT_SPEED) {
 				return HorseAttributesComponent.BASE_HORSE_SPEED;
 			}
-			if (attribute == EntityAttributes.HORSE_JUMP_STRENGTH) {
+			if (attribute == EntityAttributes.GENERIC_JUMP_STRENGTH) {
 				return HorseAttributesComponent.BASE_HORSE_JUMP;
 			}
 		}

@@ -4,14 +4,15 @@
 
 package moriyashiine.superbsteeds.common.component.entity;
 
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.superbsteeds.mixin.AbstractHorseEntityAccessor;
 import moriyashiine.superbsteeds.mixin.LlamaEntityAccessor;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundEvents;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class LLamaTrainingComponent implements ServerTickingComponent {
 	private static final int MAX_EXPERIENCE = 180;
@@ -24,12 +25,12 @@ public class LLamaTrainingComponent implements ServerTickingComponent {
 	}
 
 	@Override
-	public void readFromNbt(NbtCompound tag) {
+	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		experience = tag.getInt("Experience");
 	}
 
 	@Override
-	public void writeToNbt(NbtCompound tag) {
+	public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		tag.putInt("Experience", experience);
 	}
 
