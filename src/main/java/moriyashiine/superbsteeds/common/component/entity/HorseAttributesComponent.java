@@ -23,7 +23,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	public static final float BASE_HEALTH = 30;
 	public static final double BASE_HORSE_SPEED = 0.16875, BASE_HORSE_JUMP = 0.5;
 
-	private static final int MAX_EXPERIENCE = 600;
+	private static final int MAX_EXPERIENCE = 360;
 
 	private final AbstractHorseEntity obj;
 	private boolean setAttributes = false;
