@@ -1,6 +1,6 @@
 plugins {
     id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'maven-publish'
+    id 'io.github.ladysnake.chenille' version '0.13.1'
 }
 
 version = project.mod_version
@@ -10,11 +10,28 @@ base {
     archivesName = project.archives_base_name
 }
 
-repositories {
-    maven {
-        name "cardinal components"
-        url "https://maven.ladysnake.org/releases"
+chenille {
+    customLicense = rootProject.file("LICENSE")
+    github = new URL("https://github.com/MoriyaShiine/superb-steeds")
+    javaVersion = 21;
+    configurePublishing {
+        withLadysnakeMaven()
+        withGithubRelease()
+        withModrinthRelease()
+        withCurseforgeRelease()
     }
+}
+
+modrinth {
+    dependencies {
+        required.project "fabric-api"
+        embedded.project "cardinal-components-api"
+    }
+    syncBodyFrom = rootProject.file("README.md").text
+}
+
+repositories {
+    chenille.repositories.ladysnake()
 }
 
 dependencies {
@@ -22,8 +39,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    modApi include("org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}")
-    modApi include("org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}")
+   modIncludeApi "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+   modIncludeApi "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }

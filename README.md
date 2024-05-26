@@ -10,8 +10,16 @@ The features this mod offers are:
 * You can now feed horses while riding them by interacting with it with a food item (excluding hay bales) while looking down.
 * All horses have 15 hearts instead of a variable amount.
 * Leather horse armor allows horses to safely ride over powder snow.
-* Iron horse armor and golden horse armor have had their armor values swapped, making iron horse armor more powerful.
 * Horse armor now displays their armor value in the tooltip.
 * Skeleton Horses are no longer slowed by Soul Sand.
 * Llamas can be trained to have more inventory slots by leading them around.
 ```
+
+## External Links
+Support me on Ko-fi! I release new versions of my mods early here <3
+
+[![Ko-fi](https://i.imgur.com/6pkJV6h.png)](https://ko-fi.com/moriyashiine)
+
+Join my Discord!
+
+[![Discord](https://i.imgur.com/72QzxP1.png)](https://discord.gg/Am6M8VQ)
