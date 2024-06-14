@@ -38,7 +38,7 @@ public class LLamaTrainingComponent implements ServerTickingComponent {
 		if (obj.getWorld().getTime() % 20 == 0 && obj.isTame()) {
 			int strength = getStrength();
 			if (strength < 5) {
-				if (obj.getVelocity().length() >= 0.08 && obj.getHoldingEntity() != null) {
+				if (obj.isLeashed() && obj.getVelocity().length() >= 0.08) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;

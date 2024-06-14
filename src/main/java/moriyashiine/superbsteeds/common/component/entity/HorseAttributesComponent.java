@@ -3,8 +3,10 @@
  */
 package moriyashiine.superbsteeds.common.component.entity;
 
+import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
 import moriyashiine.superbsteeds.mixin.AbstractHorseEntityAccessor;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -15,12 +17,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class HorseAttributesComponent implements AutoSyncedComponent, ServerTickingComponent {
 	public static final float BASE_HEALTH = 30;
 	public static final double BASE_HORSE_SPEED = 0.16875, BASE_HORSE_JUMP = 0.5;
+
+	private static final Identifier MOVEMENT_SPEED_ID = SuperbSteeds.id("movement_speed");
+	private static final Identifier JUMP_STRENGTH_ID = SuperbSteeds.id("jump_strength");
 
 	private static final int MAX_EXPERIENCE = 360;
 
@@ -101,7 +107,11 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	}
 
 	public void incrementSpeed() {
-		obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Training modifier", obj instanceof CamelEntity ? 0.0133 : 27 / 640D, EntityAttributeModifier.Operation.ADD_VALUE));
+		double value = obj instanceof CamelEntity ? 0.0133 : 27 / 640D;
+		value *= speed;
+		EntityAttributeInstance speedAttribute = obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		speedAttribute.removeModifier(MOVEMENT_SPEED_ID);
+		speedAttribute.addPersistentModifier(new EntityAttributeModifier(MOVEMENT_SPEED_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		speed++;
 	}
 
@@ -110,7 +120,11 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	}
 
 	public void incrementJump() {
-		obj.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH).addPersistentModifier(new EntityAttributeModifier("Training modifier", obj instanceof CamelEntity ? 0.0267 : 1 / 8D, EntityAttributeModifier.Operation.ADD_VALUE));
+		double value = obj instanceof CamelEntity ? 0.0267 : 1 / 8D;
+		value *= jump;
+		EntityAttributeInstance jumpAttribute = obj.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH);
+		jumpAttribute.removeModifier(JUMP_STRENGTH_ID);
+		jumpAttribute.addPersistentModifier(new EntityAttributeModifier(JUMP_STRENGTH_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		jump++;
 	}
 }
