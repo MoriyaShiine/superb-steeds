@@ -13,7 +13,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.CamelEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundEvents;
@@ -71,7 +70,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		}
 		if (obj.getWorld().getTime() % 20 == 0) {
 			if (speed < 5 || jump < 5) {
-				if (obj.isSaddled() && obj.getFirstPassenger() instanceof PlayerEntity player && player.getVelocity().length() >= 0.08) {
+				if (obj.isSaddled() && obj.hasPassengers() && obj.getMovement().length() >= obj.getFinalGravity()) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;
@@ -109,7 +108,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	public void incrementSpeed() {
 		double value = obj instanceof CamelEntity ? 0.0133 : 27 / 640D;
 		value *= speed;
-		EntityAttributeInstance speedAttribute = obj.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		EntityAttributeInstance speedAttribute = obj.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
 		speedAttribute.removeModifier(MOVEMENT_SPEED_ID);
 		speedAttribute.addPersistentModifier(new EntityAttributeModifier(MOVEMENT_SPEED_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		speed++;
@@ -122,7 +121,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	public void incrementJump() {
 		double value = obj instanceof CamelEntity ? 0.0267 : 1 / 8D;
 		value *= jump;
-		EntityAttributeInstance jumpAttribute = obj.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH);
+		EntityAttributeInstance jumpAttribute = obj.getAttributeInstance(EntityAttributes.JUMP_STRENGTH);
 		jumpAttribute.removeModifier(JUMP_STRENGTH_ID);
 		jumpAttribute.addPersistentModifier(new EntityAttributeModifier(JUMP_STRENGTH_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		jump++;

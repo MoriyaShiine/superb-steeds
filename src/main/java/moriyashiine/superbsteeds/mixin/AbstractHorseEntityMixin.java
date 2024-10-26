@@ -54,13 +54,13 @@ public abstract class AbstractHorseEntityMixin extends LivingEntity {
 	private double superbsteeds$baseStats(double parentBase, double otherParentBase, double min, double max, Random random, Operation<Double> original, PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute) {
 		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(child);
 		if (horseAttributesComponent != null) {
-			if (attribute == EntityAttributes.GENERIC_MAX_HEALTH) {
+			if (attribute == EntityAttributes.MAX_HEALTH) {
 				return HorseAttributesComponent.BASE_HEALTH;
 			}
-			if (attribute == EntityAttributes.GENERIC_MOVEMENT_SPEED) {
+			if (attribute == EntityAttributes.MOVEMENT_SPEED) {
 				return HorseAttributesComponent.BASE_HORSE_SPEED;
 			}
-			if (attribute == EntityAttributes.GENERIC_JUMP_STRENGTH) {
+			if (attribute == EntityAttributes.JUMP_STRENGTH) {
 				return HorseAttributesComponent.BASE_HORSE_JUMP;
 			}
 		}

@@ -13,13 +13,13 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundEvents;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
-public class LLamaTrainingComponent implements ServerTickingComponent {
+public class LlamaTrainingComponent implements ServerTickingComponent {
 	private static final int MAX_EXPERIENCE = 180;
 
 	private final LlamaEntity obj;
 	private int experience = 0;
 
-	public LLamaTrainingComponent(LlamaEntity obj) {
+	public LlamaTrainingComponent(LlamaEntity obj) {
 		this.obj = obj;
 	}
 
@@ -38,7 +38,7 @@ public class LLamaTrainingComponent implements ServerTickingComponent {
 		if (obj.getWorld().getTime() % 20 == 0 && obj.isTame()) {
 			int strength = getStrength();
 			if (strength < 5) {
-				if (obj.isLeashed() && obj.getVelocity().length() >= 0.08) {
+				if (obj.isLeashed() && obj.getVelocity().length() >= obj.getFinalGravity()) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;
