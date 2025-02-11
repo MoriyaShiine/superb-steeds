@@ -19,7 +19,7 @@ public class ModEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.beginRegistration(AbstractHorseEntity.class, HORSE_ATTRIBUTES).filter(clazz -> !clazz.isAssignableFrom(LlamaEntity.class)).end(HorseAttributesComponent::new);
+		registry.beginRegistration(AbstractHorseEntity.class, HORSE_ATTRIBUTES).filter(clazz -> !LlamaEntity.class.isAssignableFrom(clazz)).end(HorseAttributesComponent::new);
 		registry.registerFor(LlamaEntity.class, LLAMA_TRAINING, LlamaTrainingComponent::new);
 	}
 }
