@@ -3,8 +3,6 @@
  */
 package moriyashiine.superbsteeds.common.component.entity;
 
-import moriyashiine.superbsteeds.mixin.AbstractHorseEntityAccessor;
-import moriyashiine.superbsteeds.mixin.LlamaEntityAccessor;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -25,7 +23,7 @@ public class LlamaTrainingComponent implements ServerTickingComponent {
 
 	@Override
 	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		experience = tag.getInt("Experience");
+		experience = tag.getInt("Experience", 0);
 	}
 
 	@Override
@@ -42,8 +40,8 @@ public class LlamaTrainingComponent implements ServerTickingComponent {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;
-						((LlamaEntityAccessor) obj).superbsteeds$setStrength(strength + 1);
-						((AbstractHorseEntityAccessor) obj).superbsteeds$onChestedStatusChanged();
+						obj.setStrength(strength + 1);
+						obj.onChestedStatusChanged();
 						obj.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 						obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100));
 					}

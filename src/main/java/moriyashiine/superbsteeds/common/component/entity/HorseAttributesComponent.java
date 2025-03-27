@@ -5,7 +5,6 @@ package moriyashiine.superbsteeds.common.component.entity;
 
 import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
-import moriyashiine.superbsteeds.mixin.AbstractHorseEntityAccessor;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -40,10 +39,10 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 
 	@Override
 	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		setAttributes = tag.getBoolean("SetAttributes");
-		speed = tag.getInt("Speed");
-		jump = tag.getInt("Jump");
-		experience = tag.getInt("Experience");
+		setAttributes = tag.getBoolean("SetAttributes", false);
+		speed = tag.getInt("Speed", 0);
+		jump = tag.getInt("Jump", 0);
+		experience = tag.getInt("Experience", 0);
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	public void serverTick() {
 		if (!setAttributes) {
 			setAttributes = true;
-			((AbstractHorseEntityAccessor) obj).superbsteeds$initAttributes(obj.getRandom());
+			obj.initAttributes(obj.getRandom());
 			for (int i = 0; i < obj.getRandom().nextInt(4); i++) {
 				if (obj.getRandom().nextBoolean()) {
 					incrementSpeed();
@@ -70,7 +69,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		}
 		if (obj.getWorld().getTime() % 20 == 0) {
 			if (speed < 5 || jump < 5) {
-				if (obj.isSaddled() && obj.hasPassengers() && obj.getMovement().length() >= obj.getFinalGravity()) {
+				if (obj.hasSaddleEquipped() && obj.hasPassengers() && obj.getMovement().length() >= obj.getFinalGravity()) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;

@@ -9,9 +9,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -27,11 +27,11 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
 @Mixin(AbstractHorseEntity.class)
-public abstract class AbstractHorseEntityMixin extends LivingEntity {
+public abstract class AbstractHorseEntityMixin extends MobEntity {
 	@Shadow
-	public abstract boolean isSaddled();
+	public abstract boolean isTame();
 
-	protected AbstractHorseEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+	protected AbstractHorseEntityMixin(EntityType<? extends MobEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -69,15 +69,15 @@ public abstract class AbstractHorseEntityMixin extends LivingEntity {
 
 	@ModifyExpressionValue(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"))
 	private int superbsteeds$preventSaddleBucking(int value) {
-		if (isSaddled()) {
+		if (hasSaddleEquipped()) {
 			return -1;
 		}
 		return value;
 	}
 
-	@ModifyExpressionValue(method = "getControllingPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;isSaddled()Z"))
+	@ModifyExpressionValue(method = "getControllingPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;hasSaddleEquipped()Z"))
 	private boolean superbsteeds$allowMovingWithoutSaddle(boolean value) {
-		return true;
+		return isTame();
 	}
 
 	@Inject(method = "canJump", at = @At("HEAD"), cancellable = true)
@@ -85,7 +85,7 @@ public abstract class AbstractHorseEntityMixin extends LivingEntity {
 		cir.setReturnValue(true);
 	}
 
-	@ModifyExpressionValue(method = "setJumpStrength", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;isSaddled()Z"))
+	@ModifyExpressionValue(method = "setJumpStrength", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;hasSaddleEquipped()Z"))
 	private boolean superbsteeds$allowJumpingWithoutSaddle(boolean value) {
 		return true;
 	}

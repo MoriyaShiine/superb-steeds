@@ -1,0 +1,4 @@
+accessWidener v2 named
+accessible method net/minecraft/entity/passive/AbstractHorseEntity initAttributes (Lnet/minecraft/util/math/random/Random;)V
+accessible method net/minecraft/entity/passive/AbstractHorseEntity onChestedStatusChanged ()V
+accessible method net/minecraft/entity/passive/LlamaEntity setStrength (I)V

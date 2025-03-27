@@ -19,7 +19,7 @@ public class AmbientStandGoalMixin {
 
 	@ModifyReturnValue(method = "canStart", at = @At("RETURN"))
 	private boolean superbsteeds$preventSaddleBucking(boolean original) {
-		if (original && entity.isSaddled()) {
+		if (original && entity.hasSaddleEquipped()) {
 			return false;
 		}
 		return original;

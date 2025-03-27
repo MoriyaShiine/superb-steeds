@@ -4,12 +4,10 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
 	"AbstractDonkeyEntityMixin",
-	"AbstractHorseEntityAccessor",
 	"AbstractHorseEntityMixin",
 	"AmbientStandGoalMixin",
 	"CamelEntityMixin",
 	"EntityMixin",
-	"LlamaEntityAccessor",
 	"PowderSnowBlockMixin",
 	"SkeletonHorseEntityMixin",
 	"ZombieHorseEntityMixin"

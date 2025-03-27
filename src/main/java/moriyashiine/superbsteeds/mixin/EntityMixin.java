@@ -19,7 +19,7 @@ public class EntityMixin {
 	@WrapOperation(method = "getVelocityMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"))
 	private Block superbsteeds$skeletonHorseSoulSandSpeed(BlockState instance, Operation<Block> original) {
 		Block block = original.call(instance);
-		if (block == Blocks.SOUL_SAND && ((Entity) (Object) this instanceof SkeletonHorseEntity)) {
+		if (block == Blocks.SOUL_SAND && (Entity) (Object) this instanceof SkeletonHorseEntity) {
 			return Blocks.SOUL_SOIL;
 		}
 		return block;
