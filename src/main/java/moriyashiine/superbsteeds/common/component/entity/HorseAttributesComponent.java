@@ -4,7 +4,9 @@
 package moriyashiine.superbsteeds.common.component.entity;
 
 import moriyashiine.superbsteeds.common.SuperbSteeds;
+import moriyashiine.superbsteeds.common.init.ModCriterion;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -14,6 +16,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.CamelEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -89,6 +92,13 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 						}
 						obj.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 						obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100));
+						if (speed == 5 && jump == 5) {
+							for (Entity entity : obj.getPassengerList()) {
+								if (entity instanceof ServerPlayerEntity player) {
+									ModCriterion.FULLY_TRAIN_HORSE.trigger(player);
+								}
+							}
+						}
 						sync();
 					}
 				}

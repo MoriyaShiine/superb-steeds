@@ -17,6 +17,9 @@
   "icon": "assets/superbsteeds/icon.png",
   "environment": "*",
   "entrypoints": {
+	"fabric-datagen": [
+	  "moriyashiine.superbsteeds.data.ModDataGenerator"
+	],
 	"main": [
 	  "moriyashiine.superbsteeds.common.SuperbSteeds"
 	],
@@ -32,7 +35,8 @@
 	"fabricloader": "*",
 	"minecraft": "~1.21.5",
 	"java": ">=21",
-	"fabric-api": "*"
+	"fabric-api": "*",
+	"strawberrylib": "*"
   },
   "custom": {
 	"cardinal-components": [
