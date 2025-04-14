@@ -7,7 +7,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
-import moriyashiine.superbsteeds.common.init.ModEntityComponents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -52,17 +51,14 @@ public abstract class AbstractHorseEntityMixin extends MobEntity {
 
 	@WrapOperation(method = "setChildAttribute", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;calculateAttributeBaseValue(DDDDLnet/minecraft/util/math/random/Random;)D"))
 	private double superbsteeds$baseStats(double parentBase, double otherParentBase, double min, double max, Random random, Operation<Double> original, PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute) {
-		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(child);
-		if (horseAttributesComponent != null) {
-			if (attribute == EntityAttributes.MAX_HEALTH) {
-				return HorseAttributesComponent.BASE_HEALTH;
-			}
-			if (attribute == EntityAttributes.MOVEMENT_SPEED) {
-				return HorseAttributesComponent.BASE_HORSE_SPEED;
-			}
-			if (attribute == EntityAttributes.JUMP_STRENGTH) {
-				return HorseAttributesComponent.BASE_HORSE_JUMP;
-			}
+		if (attribute == EntityAttributes.MAX_HEALTH) {
+			return HorseAttributesComponent.BASE_HEALTH;
+		}
+		if (attribute == EntityAttributes.MOVEMENT_SPEED) {
+			return HorseAttributesComponent.BASE_HORSE_SPEED;
+		}
+		if (attribute == EntityAttributes.JUMP_STRENGTH) {
+			return HorseAttributesComponent.BASE_HORSE_JUMP;
 		}
 		return original.call(parentBase, otherParentBase, min, max, random);
 	}
