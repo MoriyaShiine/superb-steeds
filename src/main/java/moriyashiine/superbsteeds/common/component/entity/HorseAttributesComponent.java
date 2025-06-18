@@ -14,10 +14,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.CamelEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
@@ -41,19 +41,19 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	}
 
 	@Override
-	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		setAttributes = tag.getBoolean("SetAttributes", false);
-		speed = tag.getInt("Speed", 0);
-		jump = tag.getInt("Jump", 0);
-		experience = tag.getInt("Experience", 0);
+	public void readData(ReadView readView) {
+		setAttributes = readView.getBoolean("SetAttributes", false);
+		speed = readView.getInt("Speed", 0);
+		jump = readView.getInt("Jump", 0);
+		experience = readView.getInt("Experience", 0);
 	}
 
 	@Override
-	public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		tag.putBoolean("SetAttributes", setAttributes);
-		tag.putInt("Speed", speed);
-		tag.putInt("Jump", jump);
-		tag.putInt("Experience", experience);
+	public void writeData(WriteView writeView) {
+		writeView.putBoolean("SetAttributes", setAttributes);
+		writeView.putInt("Speed", speed);
+		writeView.putInt("Jump", jump);
+		writeView.putInt("Experience", experience);
 	}
 
 	@Override

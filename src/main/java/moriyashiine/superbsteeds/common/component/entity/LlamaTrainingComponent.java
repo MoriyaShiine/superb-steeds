@@ -6,9 +6,9 @@ package moriyashiine.superbsteeds.common.component.entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.LlamaEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class LlamaTrainingComponent implements ServerTickingComponent {
@@ -22,13 +22,13 @@ public class LlamaTrainingComponent implements ServerTickingComponent {
 	}
 
 	@Override
-	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		experience = tag.getInt("Experience", 0);
+	public void readData(ReadView readView) {
+		experience = readView.getInt("Experience", 0);
 	}
 
 	@Override
-	public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		tag.putInt("Experience", experience);
+	public void writeData(WriteView writeView) {
+		writeView.putInt("Experience", experience);
 	}
 
 	@Override

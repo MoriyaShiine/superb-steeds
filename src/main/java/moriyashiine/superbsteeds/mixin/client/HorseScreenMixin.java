@@ -8,10 +8,10 @@ import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponen
 import moriyashiine.superbsteeds.common.component.entity.LlamaTrainingComponent;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.HorseScreen;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.HorseScreenHandler;
@@ -47,12 +47,12 @@ public abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 	private void superbsteeds$showAttributes(DrawContext context, float delta, int mouseX, int mouseY, CallbackInfo ci) {
 		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(entity);
 		if (horseAttributesComponent != null) {
-			context.drawTexture(RenderLayer::getGuiTextured, ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 28, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+			context.drawTexture(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 28, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 			drawHorseAttributes(context, horseAttributesComponent);
 		} else {
 			LlamaTrainingComponent llamaTrainingComponent = ModEntityComponents.LLAMA_TRAINING.getNullable(entity);
 			if (llamaTrainingComponent != null) {
-				context.drawTexture(RenderLayer::getGuiTextured, ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 16, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - backgroundWidth) / 2 - 16, (height - backgroundHeight) / 2, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 				drawLlamaAttributes(context, llamaTrainingComponent);
 			}
 		}
@@ -60,21 +60,21 @@ public abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 
 	@Unique
 	private void drawHorseAttributes(DrawContext context, HorseAttributesComponent horseAttributesComponent) {
-		context.drawTexture(RenderLayer::getGuiTextured, SPEED_ICON, context.getScaledWindowWidth() / 2 - 111, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, SPEED_ICON, context.getScaledWindowWidth() / 2 - 111, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
-			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getSpeed() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 110, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
+			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getSpeed() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 110, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0xFF404040, false);
 		}
-		context.drawTexture(RenderLayer::getGuiTextured, JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
-			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getJump() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
+			context.drawText(MinecraftClient.getInstance().textRenderer, i < horseAttributesComponent.getJump() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0xFF404040, false);
 		}
 	}
 
 	@Unique
 	private void drawLlamaAttributes(DrawContext context, LlamaTrainingComponent llamaTrainingComponent) {
-		context.drawTexture(RenderLayer::getGuiTextured, JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, JUMP_ICON, context.getScaledWindowWidth() / 2 - 99, context.getScaledWindowHeight() / 2 - 21, 0, 0, 9, 9, 9, 9);
 		for (int i = 0; i < 5; i++) {
-			context.drawText(MinecraftClient.getInstance().textRenderer, i < llamaTrainingComponent.getStrength() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0x404040, false);
+			context.drawText(MinecraftClient.getInstance().textRenderer, i < llamaTrainingComponent.getStrength() ? "★" : "☆", context.getScaledWindowWidth() / 2 - 98, context.getScaledWindowHeight() / 2 - 33 - (i * 9), 0xFF404040, false);
 		}
 	}
 }
