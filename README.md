@@ -1,5 +1,10 @@
-# Superb Steeds
-Superb Steeds aims to reduce the tedium and increase the usefulness of horses!
+<div align="center">
+  <h1>Superb Steeds</h1>
+  <a href="https://modrinth.com/mod/strawberrylib"><img src="https://github.com/ContentSMP/Badges/raw/refs/heads/main/strawberrylib/cozy_vector.svg"></a>
+  <a href="https://discord.gg/Am6M8VQ"><img src="https://github.com/intergrav/devins-badges/raw/refs/heads/v3/assets/cozy/social/discord-singular_vector.svg"></a>
+  <a href="https://ko-fi.com/moriyashiine"><img src="https://github.com/intergrav/devins-badges/raw/refs/heads/v3/assets/cozy/donate/kofi-singular_vector.svg"></a>
+  <h3>Superb Steeds aims to reduce the tedium and increase the usefulness of horses!</h3>
+</div>
 
 The features this mod offers are:
 ```
@@ -13,9 +18,3 @@ The features this mod offers are:
 * Skeleton Horses are no longer slowed by Soul Sand.
 * Llamas can be trained to have more inventory slots by leading them around.
 ```
-
-## External Links
-### Support me on Ko-fi! Any amount is appreciated, and you can get cosmetic benefits for doing so <3
-[![Ko-fi](https://github.com/MoriyaShiine/strawberrylib/blob/main/.webassets/kofi.png?raw=true)](https://ko-fi.com/moriyashiine)
-### Join my Discord!
-[![Discord](https://github.com/MoriyaShiine/strawberrylib/blob/main/.webassets/discord.png?raw=true)](https://discord.gg/Am6M8VQ)
