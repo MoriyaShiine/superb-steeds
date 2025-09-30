@@ -33,7 +33,7 @@ public class LlamaTrainingComponent implements ServerTickingComponent {
 
 	@Override
 	public void serverTick() {
-		if (obj.getWorld().getTime() % 20 == 0 && obj.isTame()) {
+		if (obj.getEntityWorld().getTime() % 20 == 0 && obj.isTame()) {
 			int strength = getStrength();
 			if (strength < 5) {
 				if (obj.isLeashed() && obj.getVelocity().length() >= obj.getFinalGravity()) {

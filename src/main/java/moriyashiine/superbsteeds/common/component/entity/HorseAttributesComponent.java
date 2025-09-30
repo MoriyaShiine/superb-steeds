@@ -70,7 +70,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 			}
 			sync();
 		}
-		if (obj.getWorld().getTime() % 20 == 0) {
+		if (obj.getEntityWorld().getTime() % 20 == 0) {
 			if (speed < 5 || jump < 5) {
 				if (obj.hasSaddleEquipped() && obj.hasPassengers() && obj.getMovement().length() >= obj.getFinalGravity()) {
 					experience++;
