@@ -13,7 +13,7 @@
 	"ZombieHorseEntityMixin"
   ],
   "client": [
-	"client.HorseScreenMixin"
+	"client.MountScreenMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

@@ -39,14 +39,14 @@ public abstract class AbstractHorseEntityMixin extends MobEntity {
 		cir.setReturnValue(HorseAttributesComponent.BASE_HEALTH);
 	}
 
-	@Inject(method = "getChildMovementSpeedBonus", at = @At("HEAD"), cancellable = true)
-	private static void superbsteeds$baseSpeed(DoubleSupplier randomDoubleGetter, CallbackInfoReturnable<Double> cir) {
-		cir.setReturnValue(HorseAttributesComponent.BASE_HORSE_SPEED);
-	}
-
 	@Inject(method = "getChildJumpStrengthBonus", at = @At("HEAD"), cancellable = true)
 	private static void superbsteeds$baseJump(DoubleSupplier randomDoubleGetter, CallbackInfoReturnable<Double> cir) {
 		cir.setReturnValue(HorseAttributesComponent.BASE_HORSE_JUMP);
+	}
+
+	@Inject(method = "getChildMovementSpeedBonus", at = @At("HEAD"), cancellable = true)
+	private static void superbsteeds$baseSpeed(DoubleSupplier randomDoubleGetter, CallbackInfoReturnable<Double> cir) {
+		cir.setReturnValue(HorseAttributesComponent.BASE_HORSE_SPEED);
 	}
 
 	@WrapOperation(method = "setChildAttribute", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AbstractHorseEntity;calculateAttributeBaseValue(DDDDLnet/minecraft/util/math/random/Random;)D"))

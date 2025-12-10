@@ -28,7 +28,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
-		consumer.accept(Advancement.Builder.create()
+		Advancement.Builder.create()
 				.parent(Identifier.tryParse("husbandry/tame_an_animal"))
 				.display(Items.HAY_BLOCK,
 						Text.translatable("advancements.superbsteeds.husbandry.fully_train_horse.title"),
@@ -40,6 +40,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 						false)
 				.rewards(AdvancementRewards.Builder.experience(75))
 				.criterion("fully_train_horse", ModCriterion.FULLY_TRAIN_HORSE.create(new TickCriterion.Conditions(Optional.empty())))
-				.build(consumer, SuperbSteeds.id("husbandry/fully_train_horse").toString()));
+				.build(consumer, SuperbSteeds.id("husbandry/fully_train_horse").toString());
 	}
 }
