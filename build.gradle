@@ -11,8 +11,7 @@ base {
 }
 
 chenille {
-    // todo uncomment this when chenille updates
-//    customLicense = rootProject.file("LICENSE")
+    customLicense = rootProject.file("LICENSE")
     github = new URL("https://github.com/MoriyaShiine/superb-steeds")
     javaVersion = 21
     configurePublishing {
@@ -35,10 +34,7 @@ fabricApi {
 
 repositories {
     chenille.repositories.ladysnake()
-    maven {
-        name "datasync"
-        url "https://maven.uuid.gg/releases"
-    }
+    chenille.repositories.up()
 }
 
 dependencies {
