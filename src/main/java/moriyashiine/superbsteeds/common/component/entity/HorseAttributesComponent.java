@@ -43,8 +43,8 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	@Override
 	public void readData(ReadView readView) {
 		setAttributes = readView.getBoolean("SetAttributes", false);
-		speed = readView.getInt("Speed", 0);
-		jump = readView.getInt("Jump", 0);
+		speed = readView.getInt("Speed", 1);
+		jump = readView.getInt("Jump", 1);
 		experience = readView.getInt("Experience", 0);
 	}
 
@@ -114,12 +114,12 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		return speed;
 	}
 
-	public void incrementSpeed() {
+	private void incrementSpeed() {
 		double value = obj instanceof CamelEntity ? 0.0133 : 27 / 640D;
 		value *= speed;
-		EntityAttributeInstance speedAttribute = obj.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
-		speedAttribute.removeModifier(MOVEMENT_SPEED_ID);
-		speedAttribute.addPersistentModifier(new EntityAttributeModifier(MOVEMENT_SPEED_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
+		EntityAttributeInstance attribute = obj.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+		attribute.removeModifier(MOVEMENT_SPEED_ID);
+		attribute.addPersistentModifier(new EntityAttributeModifier(MOVEMENT_SPEED_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		speed++;
 	}
 
@@ -127,12 +127,12 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		return jump;
 	}
 
-	public void incrementJump() {
+	private void incrementJump() {
 		double value = obj instanceof CamelEntity ? 0.0267 : 1 / 8D;
 		value *= jump;
-		EntityAttributeInstance jumpAttribute = obj.getAttributeInstance(EntityAttributes.JUMP_STRENGTH);
-		jumpAttribute.removeModifier(JUMP_STRENGTH_ID);
-		jumpAttribute.addPersistentModifier(new EntityAttributeModifier(JUMP_STRENGTH_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
+		EntityAttributeInstance attribute = obj.getAttributeInstance(EntityAttributes.JUMP_STRENGTH);
+		attribute.removeModifier(JUMP_STRENGTH_ID);
+		attribute.addPersistentModifier(new EntityAttributeModifier(JUMP_STRENGTH_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
 		jump++;
 	}
 }
