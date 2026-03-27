@@ -13,6 +13,7 @@ import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
 public class ModEntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<HorseAttributesComponent> HORSE_ATTRIBUTES = ComponentRegistry.getOrCreate(SuperbSteeds.id("horse_attributes"), HorseAttributesComponent.class);
@@ -20,7 +21,7 @@ public class ModEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.beginRegistration(AbstractHorse.class, HORSE_ATTRIBUTES).filter(clazz -> !Llama.class.isAssignableFrom(clazz)).end(HorseAttributesComponent::new);
-		registry.registerFor(Llama.class, LLAMA_TRAINING, LlamaTrainingComponent::new);
+		registry.beginRegistration(AbstractHorse.class, HORSE_ATTRIBUTES).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).filter(clazz -> !Llama.class.isAssignableFrom(clazz)).end(HorseAttributesComponent::new);
+		registry.beginRegistration(Llama.class, LLAMA_TRAINING).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(LlamaTrainingComponent::new);
 	}
 }
