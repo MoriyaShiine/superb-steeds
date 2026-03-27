@@ -1,25 +1,26 @@
 /*
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
+
 package moriyashiine.superbsteeds.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.entity.ai.goal.AmbientStandGoal;
-import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.world.entity.ai.goal.RandomStandGoal;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(AmbientStandGoal.class)
-public class AmbientStandGoalMixin {
+@Mixin(RandomStandGoal.class)
+public class RandomStandGoalMixin {
 	@Shadow
 	@Final
-	private AbstractHorseEntity entity;
+	private AbstractHorse horse;
 
-	@ModifyReturnValue(method = "canStart", at = @At("RETURN"))
+	@ModifyReturnValue(method = "canUse", at = @At("RETURN"))
 	private boolean superbsteeds$preventSaddleBucking(boolean original) {
-		if (original && entity.hasSaddleEquipped()) {
+		if (original && horse.isSaddled()) {
 			return false;
 		}
 		return original;

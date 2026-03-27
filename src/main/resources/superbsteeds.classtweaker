@@ -1,0 +1,4 @@
+classTweaker v1 official
+accessible method net/minecraft/world/entity/animal/equine/AbstractHorse randomizeAttributes (Lnet/minecraft/util/RandomSource;)V
+accessible method net/minecraft/world/entity/animal/equine/AbstractHorse createInventory ()V
+accessible method net/minecraft/world/entity/animal/equine/Llama setStrength (I)V

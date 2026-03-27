@@ -1,6 +1,7 @@
 /*
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
+
 package moriyashiine.superbsteeds.data;
 
 import moriyashiine.superbsteeds.data.provider.ModAdvancementProvider;

@@ -1,13 +1,14 @@
 /*
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
+
 package moriyashiine.superbsteeds.common.init;
 
 import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
 import moriyashiine.superbsteeds.common.component.entity.LlamaTrainingComponent;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.LlamaEntity;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.Llama;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
@@ -19,7 +20,7 @@ public class ModEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.beginRegistration(AbstractHorseEntity.class, HORSE_ATTRIBUTES).filter(clazz -> !LlamaEntity.class.isAssignableFrom(clazz)).end(HorseAttributesComponent::new);
-		registry.registerFor(LlamaEntity.class, LLAMA_TRAINING, LlamaTrainingComponent::new);
+		registry.beginRegistration(AbstractHorse.class, HORSE_ATTRIBUTES).filter(clazz -> !Llama.class.isAssignableFrom(clazz)).end(HorseAttributesComponent::new);
+		registry.registerFor(Llama.class, LLAMA_TRAINING, LlamaTrainingComponent::new);
 	}
 }

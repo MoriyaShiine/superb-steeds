@@ -1,26 +1,27 @@
 /*
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
+
 package moriyashiine.superbsteeds.common.event;
 
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class FeedMountedHorseEvent implements UseItemCallback {
 	@Override
-	public ActionResult interact(PlayerEntity player, World world, Hand hand) {
-		if (player.getPitch() > 45 && player.getControllingVehicle() instanceof AbstractHorseEntity horse && horse.getHealth() < horse.getMaxHealth() && horse.isTame()) {
-			ItemStack stack = player.getStackInHand(hand);
-			if (horse.isBreedingItem(stack) && !(stack.getItem() instanceof BlockItem) && horse.interactHorse(player, stack) != ActionResult.PASS) {
-				return ActionResult.SUCCESS;
+	public InteractionResult interact(Player player, Level level, InteractionHand hand) {
+		if (player.getXRot() > 45 && player.getControlledVehicle() instanceof AbstractHorse horse && horse.getHealth() < horse.getMaxHealth() && horse.isTamed()) {
+			ItemStack stack = player.getItemInHand(hand);
+			if (horse.isFood(stack) && !(stack.getItem() instanceof BlockItem) && horse.fedFood(player, stack).consumesAction()) {
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

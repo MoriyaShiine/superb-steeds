@@ -1,21 +1,24 @@
 {
   "required": true,
   "package": "moriyashiine.superbsteeds.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
-	"AbstractDonkeyEntityMixin",
-	"AbstractHorseEntityMixin",
-	"AmbientStandGoalMixin",
-	"CamelEntityMixin",
+	"AbstractChestedHorseMixin",
+	"AbstractHorseMixin",
+	"CamelMixin",
 	"EntityMixin",
 	"PowderSnowBlockMixin",
-	"SkeletonHorseEntityMixin",
-	"ZombieHorseEntityMixin"
+	"RandomStandGoalMixin",
+	"SkeletonHorseMixin",
+	"ZombieHorseMixin"
   ],
   "client": [
-	"client.MountScreenMixin"
+	"client.AbstractMountInventoryScreenMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
+  },
+  "overwrites": {
+	"requireAnnotations": true
   }
 }

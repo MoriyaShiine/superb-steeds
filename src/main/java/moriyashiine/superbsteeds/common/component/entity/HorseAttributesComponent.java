@@ -1,24 +1,26 @@
 /*
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
+
 package moriyashiine.superbsteeds.common.component.entity;
 
+import moriyashiine.strawberrylib.api.module.SLibUtils;
 import moriyashiine.superbsteeds.common.SuperbSteeds;
-import moriyashiine.superbsteeds.common.init.ModCriterion;
 import moriyashiine.superbsteeds.common.init.ModEntityComponents;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.CamelEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
+import moriyashiine.superbsteeds.common.init.ModTriggers;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
@@ -31,36 +33,36 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 
 	private static final int MAX_EXPERIENCE = 360;
 
-	private final AbstractHorseEntity obj;
+	private final AbstractHorse obj;
 	private boolean setAttributes = false;
 	private int speed = 1, jump = 1;
 	private int experience = 0;
 
-	public HorseAttributesComponent(AbstractHorseEntity obj) {
+	public HorseAttributesComponent(AbstractHorse obj) {
 		this.obj = obj;
 	}
 
 	@Override
-	public void readData(ReadView readView) {
-		setAttributes = readView.getBoolean("SetAttributes", false);
-		speed = readView.getInt("Speed", 1);
-		jump = readView.getInt("Jump", 1);
-		experience = readView.getInt("Experience", 0);
+	public void readData(ValueInput input) {
+		setAttributes = input.getBooleanOr("SetAttributes", false);
+		speed = input.getIntOr("Speed", 1);
+		jump = input.getIntOr("Jump", 1);
+		experience = input.getIntOr("Experience", 0);
 	}
 
 	@Override
-	public void writeData(WriteView writeView) {
-		writeView.putBoolean("SetAttributes", setAttributes);
-		writeView.putInt("Speed", speed);
-		writeView.putInt("Jump", jump);
-		writeView.putInt("Experience", experience);
+	public void writeData(ValueOutput output) {
+		output.putBoolean("SetAttributes", setAttributes);
+		output.putInt("Speed", speed);
+		output.putInt("Jump", jump);
+		output.putInt("Experience", experience);
 	}
 
 	@Override
 	public void serverTick() {
 		if (!setAttributes) {
 			setAttributes = true;
-			obj.initAttributes(obj.getRandom());
+			obj.randomizeAttributes(obj.getRandom());
 			for (int i = 0; i < obj.getRandom().nextInt(4); i++) {
 				if (obj.getRandom().nextBoolean()) {
 					incrementSpeed();
@@ -70,9 +72,9 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 			}
 			sync();
 		}
-		if (obj.getEntityWorld().getTime() % 20 == 0) {
+		if (obj.level().getGameTime() % 20 == 0) {
 			if (speed < 5 || jump < 5) {
-				if (obj.hasSaddleEquipped() && obj.hasPassengers() && obj.getMovement().length() >= obj.getFinalGravity()) {
+				if (obj.isSaddled() && obj.isVehicle() && obj.getKnownMovement().length() >= obj.getGravity()) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;
@@ -90,12 +92,12 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 								incrementSpeed();
 							}
 						}
-						obj.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-						obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100));
+						SLibUtils.playSound(obj, SoundEvents.EXPERIENCE_ORB_PICKUP);
+						obj.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
 						if (speed == 5 && jump == 5) {
-							for (Entity entity : obj.getPassengerList()) {
-								if (entity instanceof ServerPlayerEntity player) {
-									ModCriterion.FULLY_TRAIN_HORSE.trigger(player);
+							for (Entity entity : obj.getPassengers()) {
+								if (entity instanceof ServerPlayer player) {
+									ModTriggers.FULLY_TRAIN_HORSE.trigger(player);
 								}
 							}
 						}
@@ -114,12 +116,12 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		return speed;
 	}
 
-	private void incrementSpeed() {
-		double value = obj instanceof CamelEntity ? 0.0133 : 27 / 640D;
+	public void incrementSpeed() {
+		double value = obj instanceof Camel ? 0.0133 : 27 / 640D;
 		value *= speed;
-		EntityAttributeInstance attribute = obj.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+		AttributeInstance attribute = obj.getAttribute(Attributes.MOVEMENT_SPEED);
 		attribute.removeModifier(MOVEMENT_SPEED_ID);
-		attribute.addPersistentModifier(new EntityAttributeModifier(MOVEMENT_SPEED_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
+		attribute.addPermanentModifier(new AttributeModifier(MOVEMENT_SPEED_ID, value, AttributeModifier.Operation.ADD_VALUE));
 		speed++;
 	}
 
@@ -127,12 +129,12 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		return jump;
 	}
 
-	private void incrementJump() {
-		double value = obj instanceof CamelEntity ? 0.0267 : 1 / 8D;
+	public void incrementJump() {
+		double value = obj instanceof Camel ? 0.0267 : 1 / 8D;
 		value *= jump;
-		EntityAttributeInstance attribute = obj.getAttributeInstance(EntityAttributes.JUMP_STRENGTH);
+		AttributeInstance attribute = obj.getAttribute(Attributes.JUMP_STRENGTH);
 		attribute.removeModifier(JUMP_STRENGTH_ID);
-		attribute.addPersistentModifier(new EntityAttributeModifier(JUMP_STRENGTH_ID, value, EntityAttributeModifier.Operation.ADD_VALUE));
+		attribute.addPermanentModifier(new AttributeModifier(JUMP_STRENGTH_ID, value, AttributeModifier.Operation.ADD_VALUE));
 		jump++;
 	}
 }
