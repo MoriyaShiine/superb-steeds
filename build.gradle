@@ -35,7 +35,6 @@ fabricApi {
 repositories {
     chenille.repositories.ladysnake()
     chenille.repositories.up()
-    mavenLocal()
 }
 
 dependencies {
