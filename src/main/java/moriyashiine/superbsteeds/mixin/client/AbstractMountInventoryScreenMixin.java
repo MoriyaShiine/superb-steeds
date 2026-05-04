@@ -18,7 +18,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractMountInventoryMenu;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -47,12 +46,12 @@ public abstract class AbstractMountInventoryScreenMixin<T extends AbstractMountI
 
 	@Inject(method = "extractBackground", at = @At("TAIL"))
 	private void superbsteeds$showAttributes(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-		@Nullable HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(mount);
+		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(mount);
 		if (horseAttributesComponent != null) {
 			graphics.blit(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - imageWidth) / 2 - 28, (height - imageHeight) / 2, 0, 0, imageWidth, imageHeight, 256, 256);
 			drawHorseAttributes(graphics, horseAttributesComponent);
 		} else {
-			@Nullable LlamaTrainingComponent llamaTrainingComponent = ModEntityComponents.LLAMA_TRAINING.getNullable(mount);
+			LlamaTrainingComponent llamaTrainingComponent = ModEntityComponents.LLAMA_TRAINING.getNullable(mount);
 			if (llamaTrainingComponent != null) {
 				graphics.blit(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - imageWidth) / 2 - 16, (height - imageHeight) / 2, 0, 0, imageWidth, imageHeight, 256, 256);
 				drawLlamaAttributes(graphics, llamaTrainingComponent);

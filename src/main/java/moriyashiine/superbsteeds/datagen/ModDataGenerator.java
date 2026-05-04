@@ -2,9 +2,9 @@
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
 
-package moriyashiine.superbsteeds.data;
+package moriyashiine.superbsteeds.datagen;
 
-import moriyashiine.superbsteeds.data.provider.ModAdvancementProvider;
+import moriyashiine.superbsteeds.datagen.provider.ModAdvancementProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 

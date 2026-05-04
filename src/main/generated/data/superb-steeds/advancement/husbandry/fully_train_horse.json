@@ -2,19 +2,19 @@
   "parent": "minecraft:husbandry/tame_an_animal",
   "criteria": {
 	"fully_train_horse": {
-	  "trigger": "superbsteeds:fully_train_horse"
+	  "trigger": "superb-steeds:fully_train_horse"
 	}
   },
   "display": {
 	"description": {
-	  "translate": "advancements.superbsteeds.husbandry.fully_train_horse.description"
+	  "translate": "advancements.superb-steeds.husbandry.fully_train_horse.description"
 	},
 	"frame": "challenge",
 	"icon": {
 	  "id": "minecraft:hay_block"
 	},
 	"title": {
-	  "translate": "advancements.superbsteeds.husbandry.fully_train_horse.title"
+	  "translate": "advancements.superb-steeds.husbandry.fully_train_horse.title"
 	}
   },
   "requirements": [

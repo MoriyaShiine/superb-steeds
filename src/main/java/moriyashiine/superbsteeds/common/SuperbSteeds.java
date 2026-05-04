@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.resources.Identifier;
 
 public class SuperbSteeds implements ModInitializer {
-	public static final String MOD_ID = "superbsteeds";
+	public static final String MOD_ID = "superb-steeds";
 
 	@Override
 	public void onInitialize() {

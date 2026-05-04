@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "superbsteeds",
+  "id": "superb-steeds",
   "version": "${version}",
   "name": "Superb Steeds",
   "description": "Overhauls horses with various adjustments and training mechanics",
@@ -14,11 +14,11 @@
 	"issues": "https://github.com/MoriyaShiine/superb-steeds/issues"
   },
   "license": "All Rights Reserved",
-  "icon": "assets/superbsteeds/icon.png",
+  "icon": "assets/superb-steeds/icon.png",
   "environment": "*",
   "entrypoints": {
 	"fabric-datagen": [
-	  "moriyashiine.superbsteeds.data.ModDataGenerator"
+	  "moriyashiine.superbsteeds.datagen.ModDataGenerator"
 	],
 	"main": [
 	  "moriyashiine.superbsteeds.common.SuperbSteeds"
@@ -28,9 +28,9 @@
 	]
   },
   "mixins": [
-	"superbsteeds.mixins.json"
+	"superb-steeds.mixins.json"
   ],
-  "accessWidener": "superbsteeds.classtweaker",
+  "accessWidener": "superb-steeds.classtweaker",
   "depends": {
 	"fabricloader": "*",
 	"minecraft": "~26.1",
@@ -40,8 +40,8 @@
   },
   "custom": {
 	"cardinal-components": [
-	  "superbsteeds:horse_attributes",
-	  "superbsteeds:llama_training"
+	  "superb-steeds:horse_attributes",
+	  "superb-steeds:llama_training"
 	]
   }
 }

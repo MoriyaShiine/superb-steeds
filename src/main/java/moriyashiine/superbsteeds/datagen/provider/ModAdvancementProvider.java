@@ -2,7 +2,7 @@
  * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
 
-package moriyashiine.superbsteeds.data.provider;
+package moriyashiine.superbsteeds.datagen.provider;
 
 import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.init.ModTriggers;
@@ -32,8 +32,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 				.parent(Identifier.tryParse("husbandry/tame_an_animal"))
 				.display(Items.HAY_BLOCK,
-						Component.translatable("advancements.superbsteeds.husbandry.fully_train_horse.title"),
-						Component.translatable("advancements.superbsteeds.husbandry.fully_train_horse.description"),
+						Component.translatable("advancements.superb-steeds.husbandry.fully_train_horse.title"),
+						Component.translatable("advancements.superb-steeds.husbandry.fully_train_horse.description"),
 						null,
 						AdvancementType.CHALLENGE,
 						true,
