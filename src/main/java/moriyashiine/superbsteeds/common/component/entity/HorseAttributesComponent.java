@@ -74,7 +74,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		}
 		if (obj.level().getGameTime() % 20 == 0) {
 			if (speed < 5 || jump < 5) {
-				if (obj.isSaddled() && obj.isVehicle() && obj.getKnownMovement().length() >= obj.getGravity()) {
+				if (obj.isSaddled() && obj.isVehicle() && obj.getKnownMovement().horizontalDistanceSqr() > 0) {
 					experience++;
 					if (experience >= MAX_EXPERIENCE) {
 						experience = 0;
