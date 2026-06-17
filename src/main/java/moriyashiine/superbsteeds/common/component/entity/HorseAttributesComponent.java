@@ -6,8 +6,8 @@ package moriyashiine.superbsteeds.common.component.entity;
 
 import moriyashiine.strawberrylib.api.module.SLibUtils;
 import moriyashiine.superbsteeds.common.SuperbSteeds;
-import moriyashiine.superbsteeds.common.init.ModEntityComponents;
-import moriyashiine.superbsteeds.common.init.ModTriggers;
+import moriyashiine.superbsteeds.common.init.SuperbSteedsEntityComponents;
+import moriyashiine.superbsteeds.common.init.SuperbSteedsTriggers;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -97,7 +97,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 						if (speed == 5 && jump == 5) {
 							for (Entity entity : obj.getPassengers()) {
 								if (entity instanceof ServerPlayer player) {
-									ModTriggers.FULLY_TRAIN_HORSE.trigger(player);
+									SuperbSteedsTriggers.FULLY_TRAIN_HORSE.trigger(player);
 								}
 							}
 						}
@@ -109,7 +109,7 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 	}
 
 	public void sync() {
-		ModEntityComponents.HORSE_ATTRIBUTES.sync(obj);
+		SuperbSteedsEntityComponents.HORSE_ATTRIBUTES.sync(obj);
 	}
 
 	public int getSpeed() {

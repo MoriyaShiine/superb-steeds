@@ -7,7 +7,7 @@ package moriyashiine.superbsteeds.mixin.client;
 import moriyashiine.superbsteeds.common.SuperbSteeds;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
 import moriyashiine.superbsteeds.common.component.entity.LlamaTrainingComponent;
-import moriyashiine.superbsteeds.common.init.ModEntityComponents;
+import moriyashiine.superbsteeds.common.init.SuperbSteedsEntityComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -46,15 +46,15 @@ public abstract class AbstractMountInventoryScreenMixin<T extends AbstractMountI
 
 	@Inject(method = "extractBackground", at = @At("TAIL"))
 	private void superbsteeds$showAttributes(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-		HorseAttributesComponent horseAttributesComponent = ModEntityComponents.HORSE_ATTRIBUTES.getNullable(mount);
-		if (horseAttributesComponent != null) {
+		HorseAttributesComponent horseAttributes = SuperbSteedsEntityComponents.HORSE_ATTRIBUTES.getNullable(mount);
+		if (horseAttributes != null) {
 			graphics.blit(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - imageWidth) / 2 - 28, (height - imageHeight) / 2, 0, 0, imageWidth, imageHeight, 256, 256);
-			drawHorseAttributes(graphics, horseAttributesComponent);
+			drawHorseAttributes(graphics, horseAttributes);
 		} else {
-			LlamaTrainingComponent llamaTrainingComponent = ModEntityComponents.LLAMA_TRAINING.getNullable(mount);
-			if (llamaTrainingComponent != null) {
+			LlamaTrainingComponent llamaTraining = SuperbSteedsEntityComponents.LLAMA_TRAINING.getNullable(mount);
+			if (llamaTraining != null) {
 				graphics.blit(RenderPipelines.GUI_TEXTURED, ATTRIBUTES_TEXTURE, (width - imageWidth) / 2 - 16, (height - imageHeight) / 2, 0, 0, imageWidth, imageHeight, 256, 256);
-				drawLlamaAttributes(graphics, llamaTrainingComponent);
+				drawLlamaAttributes(graphics, llamaTraining);
 			}
 		}
 	}

@@ -4,14 +4,14 @@
 
 package moriyashiine.superbsteeds.datagen;
 
-import moriyashiine.superbsteeds.datagen.provider.ModAdvancementProvider;
+import moriyashiine.superbsteeds.datagen.provider.SuperbSteedsAdvancementProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
-public class ModDataGenerator implements DataGeneratorEntrypoint {
+public class SuperbSteedsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		pack.addProvider(ModAdvancementProvider::new);
+		pack.addProvider(SuperbSteedsAdvancementProvider::new);
 	}
 }

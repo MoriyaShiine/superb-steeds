@@ -15,7 +15,7 @@ import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
 import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
-public class ModEntityComponents implements EntityComponentInitializer {
+public class SuperbSteedsEntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<HorseAttributesComponent> HORSE_ATTRIBUTES = ComponentRegistry.getOrCreate(SuperbSteeds.id("horse_attributes"), HorseAttributesComponent.class);
 	public static final ComponentKey<LlamaTrainingComponent> LLAMA_TRAINING = ComponentRegistry.getOrCreate(SuperbSteeds.id("llama_training"), LlamaTrainingComponent.class);
 

@@ -6,9 +6,8 @@ package moriyashiine.superbsteeds.common;
 
 import moriyashiine.strawberrylib.api.SLib;
 import moriyashiine.superbsteeds.common.event.FeedMountedHorseEvent;
-import moriyashiine.superbsteeds.common.init.ModTriggers;
+import moriyashiine.superbsteeds.common.init.SuperbSteedsTriggers;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.resources.Identifier;
 
 public class SuperbSteeds implements ModInitializer {
@@ -26,10 +25,10 @@ public class SuperbSteeds implements ModInitializer {
 	}
 
 	private void initRegistries() {
-		ModTriggers.init();
+		SuperbSteedsTriggers.init();
 	}
 
 	private void initEvents() {
-		UseItemCallback.EVENT.register(new FeedMountedHorseEvent());
+		FeedMountedHorseEvent.init();
 	}
 }

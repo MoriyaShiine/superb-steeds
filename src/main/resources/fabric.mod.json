@@ -18,13 +18,13 @@
   "environment": "*",
   "entrypoints": {
 	"fabric-datagen": [
-	  "moriyashiine.superbsteeds.datagen.ModDataGenerator"
+	  "moriyashiine.superbsteeds.datagen.SuperbSteedsDataGenerator"
 	],
 	"main": [
 	  "moriyashiine.superbsteeds.common.SuperbSteeds"
 	],
 	"cardinal-components-entity": [
-	  "moriyashiine.superbsteeds.common.init.ModEntityComponents"
+	  "moriyashiine.superbsteeds.common.init.SuperbSteedsEntityComponents"
 	]
   },
   "mixins": [
@@ -33,7 +33,7 @@
   "accessWidener": "superb-steeds.classtweaker",
   "depends": {
 	"fabricloader": "*",
-	"minecraft": "~26.1",
+	"minecraft": "~26.2",
 	"java": ">=25",
 	"fabric-api": "*",
 	"strawberrylib": "*"

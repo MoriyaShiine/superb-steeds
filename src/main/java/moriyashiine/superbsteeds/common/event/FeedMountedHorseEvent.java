@@ -14,6 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class FeedMountedHorseEvent implements UseItemCallback {
+	public static void init() {
+		UseItemCallback.EVENT.register(new FeedMountedHorseEvent());
+	}
+
 	@Override
 	public InteractionResult interact(Player player, Level level, InteractionHand hand) {
 		if (player.getXRot() > 45 && player.getControlledVehicle() instanceof AbstractHorse horse && horse.getHealth() < horse.getMaxHealth() && horse.isTamed()) {
