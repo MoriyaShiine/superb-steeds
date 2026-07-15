@@ -19,7 +19,7 @@ chenille {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/superb-steeds.classtweaker")
+    accessWidenerPath = file("src/main/resources/superb_steeds.classtweaker")
 }
 
 fabricApi {

@@ -10,4 +10,4 @@ pluginManagement {
 }
 
 // Should match your modid
-rootProject.name = 'superb-steeds'
+rootProject.name = 'superb_steeds'

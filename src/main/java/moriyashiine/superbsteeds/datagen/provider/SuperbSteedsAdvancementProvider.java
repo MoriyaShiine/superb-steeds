@@ -32,8 +32,8 @@ public class SuperbSteedsAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 				.parent(Identifier.withDefaultNamespace("husbandry/tame_an_animal"))
 				.display(Items.HAY_BLOCK,
-						Component.translatable("advancements.superb-steeds.husbandry.fully_train_horse.title"),
-						Component.translatable("advancements.superb-steeds.husbandry.fully_train_horse.description"),
+						Component.translatable("advancements.superb_steeds.husbandry.fully_train_horse.title"),
+						Component.translatable("advancements.superb_steeds.husbandry.fully_train_horse.description"),
 						null,
 						AdvancementType.CHALLENGE,
 						true,
