@@ -5,11 +5,9 @@
   "mixins": [
 	"AbstractChestedHorseMixin",
 	"AbstractHorseMixin",
-	"CamelMixin",
 	"EntityMixin",
 	"PowderSnowBlockMixin",
 	"RandomStandGoalMixin",
-	"SkeletonHorseMixin",
 	"ZombieHorseMixin"
   ],
   "client": [

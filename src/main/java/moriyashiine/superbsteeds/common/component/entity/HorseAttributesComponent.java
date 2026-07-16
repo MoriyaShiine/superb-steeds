@@ -72,39 +72,8 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 			}
 			sync();
 		}
-		if (obj.level().getGameTime() % 20 == 0) {
-			if (speed < 5 || jump < 5) {
-				if (obj.isSaddled() && obj.isVehicle() && obj.getKnownMovement().horizontalDistanceSqr() > 0) {
-					experience++;
-					if (experience >= MAX_EXPERIENCE) {
-						experience = 0;
-						if (obj.getRandom().nextBoolean()) {
-							if (speed < 5) {
-								incrementSpeed();
-							} else {
-								incrementJump();
-							}
-						} else {
-							if (jump < 5) {
-								incrementJump();
-
-							} else {
-								incrementSpeed();
-							}
-						}
-						SLibUtils.playSound(obj, SoundEvents.EXPERIENCE_ORB_PICKUP);
-						obj.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
-						if (speed == 5 && jump == 5) {
-							for (Entity entity : obj.getPassengers()) {
-								if (entity instanceof ServerPlayer player) {
-									SuperbSteedsTriggers.FULLY_TRAIN_HORSE.trigger(player);
-								}
-							}
-						}
-						sync();
-					}
-				}
-			}
+		if (obj.level().getGameTime() % 20 == 0 && !isFullyTrained() && obj.isSaddled() && obj.isVehicle() && obj.getKnownMovement().horizontalDistanceSqr() > 0 && ++experience >= MAX_EXPERIENCE) {
+			levelUp();
 		}
 	}
 
@@ -136,5 +105,36 @@ public class HorseAttributesComponent implements AutoSyncedComponent, ServerTick
 		attribute.removeModifier(JUMP_STRENGTH_ID);
 		attribute.addPermanentModifier(new AttributeModifier(JUMP_STRENGTH_ID, value, AttributeModifier.Operation.ADD_VALUE));
 		jump++;
+	}
+
+	public boolean isFullyTrained() {
+		return speed == 5 && jump == 5;
+	}
+
+	private void levelUp() {
+		if (obj.getRandom().nextBoolean()) {
+			if (speed < 5) {
+				incrementSpeed();
+			} else {
+				incrementJump();
+			}
+		} else {
+			if (jump < 5) {
+				incrementJump();
+			} else {
+				incrementSpeed();
+			}
+		}
+		experience = 0;
+		SLibUtils.playSound(obj, SoundEvents.EXPERIENCE_ORB_PICKUP);
+		obj.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
+		if (isFullyTrained()) {
+			for (Entity entity : obj.getPassengers()) {
+				if (entity instanceof ServerPlayer player) {
+					SuperbSteedsTriggers.FULLY_TRAIN_HORSE.trigger(player);
+				}
+			}
+		}
+		sync();
 	}
 }

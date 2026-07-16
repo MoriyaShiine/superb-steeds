@@ -6,6 +6,7 @@ package moriyashiine.superbsteeds.common;
 
 import moriyashiine.strawberrylib.api.SLib;
 import moriyashiine.superbsteeds.common.event.FeedMountedHorseEvent;
+import moriyashiine.superbsteeds.common.event.ModifyAttributesEvent;
 import moriyashiine.superbsteeds.common.init.SuperbSteedsTriggers;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
@@ -30,5 +31,6 @@ public class SuperbSteeds implements ModInitializer {
 
 	private void initEvents() {
 		FeedMountedHorseEvent.init();
+		ModifyAttributesEvent.init();
 	}
 }
