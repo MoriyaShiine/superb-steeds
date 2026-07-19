@@ -32,6 +32,7 @@ fabricApi {
 repositories {
 	chenille.repositories.ladysnake()
 	chenille.repositories.up()
+	mavenLocal()
 }
 
 dependencies {
@@ -39,7 +40,7 @@ dependencies {
 	implementation "net.fabricmc:fabric-loader:${loader_version}"
 
 	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-	implementation "moriyashiine:strawberrylib:${strawberrylib_version}"
+	implementation "moriyashiine.strawberrylib:strawberrylib-fabric:${strawberrylib_version}"
 }
 
 processResources {
