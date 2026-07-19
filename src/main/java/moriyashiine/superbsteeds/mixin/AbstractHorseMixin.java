@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import moriyashiine.superbsteeds.common.component.entity.HorseAttributesComponent;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +17,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -62,6 +66,14 @@ public abstract class AbstractHorseMixin extends Mob {
 			return HorseAttributesComponent.BASE_HORSE_JUMP;
 		}
 		return original.call(parentAValue, parentBValue, attributeRangeMin, attributeRangeMax, random);
+	}
+
+	@Inject(method = "handleEating", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/equine/AbstractHorse;eating()V"))
+	private void superbsteeds$consumeEffects(Player player, ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
+		Consumable consumable = itemStack.get(DataComponents.CONSUMABLE);
+		if (consumable != null) {
+			consumable.onConsumeEffects().forEach(effect -> effect.apply(level(), itemStack, this));
+		}
 	}
 
 	@ModifyExpressionValue(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"))
