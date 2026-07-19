@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+	"MoriyaShiine",
+	"8onfire"
+  ],
+  "contact": {
+	"homepage": "https://modrinth.com/mod/${project_name}",
+	"sources": "https://github.com/MoriyaShiine/${project_name}",
+	"issues": "https://github.com/MoriyaShiine/${project_name}/issues"
+  },
+  "license": "All Rights Reserved",
+  "icon": "assets/${mod_id}/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"fabric-datagen": [
+	  "moriyashiine.superbsteeds.datagen.SuperbSteedsDataGenerator"
+	],
+	"main": [
+	  "moriyashiine.superbsteeds.common.SuperbSteeds"
+	],
+	"cardinal-components-entity": [
+	  "moriyashiine.superbsteeds.common.init.SuperbSteedsEntityComponents"
+	]
+  },
+  "mixins": [
+	"${mod_id}.mixins.json"
+  ],
+  "accessWidener": "${mod_id}.classtweaker",
+  "depends": {
+	"fabricloader": "*",
+	"minecraft": "~26.1",
+	"java": ">=25",
+	"fabric-api": "*",
+	"strawberrylib": "*"
+  },
+  "custom": {
+	"launchpad:compatible": true,
+	"cardinal-components": [
+	  "${mod_id}:horse_attributes",
+	  "${mod_id}:llama_training"
+	]
+  }
+}
