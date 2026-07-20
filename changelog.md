@@ -1,4 +1,10 @@
 ------------------------------------------------------
+Version 26.1-r2
+------------------------------------------------------
+- **This update changes the mod id! Please be aware that your horses will need to be trained again.**
+- compile against latest strawberrylib
+
+------------------------------------------------------
 Version 26.2-r1
 ------------------------------------------------------
 - update to 26.2
