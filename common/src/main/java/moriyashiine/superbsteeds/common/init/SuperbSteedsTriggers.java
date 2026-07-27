@@ -1,6 +1,6 @@
 package moriyashiine.superbsteeds.common.init;
 
-import net.minecraft.advancements.criterion.PlayerTrigger;
+import net.minecraft.advancements.triggers.PlayerTrigger;
 
 import static moriyashiine.strawberrylib.api.module.SLibRegistries.registerTrigger;
 
