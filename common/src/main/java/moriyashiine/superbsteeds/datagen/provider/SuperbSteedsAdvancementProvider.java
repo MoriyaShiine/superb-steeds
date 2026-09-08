@@ -30,13 +30,12 @@ public class SuperbSteedsAdvancementProvider extends FabricAdvancementProvider {
 				.display(Items.HAY_BLOCK,
 						Component.translatable("advancements.superb_steeds.husbandry.fully_train_horse.title"),
 						Component.translatable("advancements.superb_steeds.husbandry.fully_train_horse.description"),
-						null,
 						AdvancementType.CHALLENGE,
 						true,
 						true,
 						false)
 				.rewards(AdvancementRewards.Builder.experience(75))
 				.addCriterion("fully_train_horse", SuperbSteedsTriggers.FULLY_TRAIN_HORSE.createCriterion(new PlayerTrigger.TriggerInstance(Optional.empty())))
-				.save(consumer, SuperbSteeds.id("husbandry/fully_train_horse").toString());
+				.save(consumer, SuperbSteeds.id("husbandry/fully_train_horse"));
 	}
 }
